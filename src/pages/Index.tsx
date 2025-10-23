@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -60,6 +60,23 @@ const Index = () => {
   const [showScripts, setShowScripts] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
+  const [stats, setStats] = useState({ total_visits: 0, unique_visitors: 0, visits_today: 0, visits_week: 0 });
+
+  useEffect(() => {
+    const visitorId = localStorage.getItem('visitor_id') || `visitor_${Date.now()}_${Math.random()}`;
+    localStorage.setItem('visitor_id', visitorId);
+
+    fetch('https://functions.poehali.dev/3e527402-e6c4-4b39-8ce9-1afc56b1012b', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ visitor_id: visitorId })
+    });
+
+    fetch('https://functions.poehali.dev/3e527402-e6c4-4b39-8ce9-1afc56b1012b')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => console.error('Failed to fetch stats:', err));
+  }, []);
 
   const filteredScripts = scripts.filter(script =>
     script.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -76,13 +93,37 @@ const Index = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-12">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-8 animate-fade-in">
           <h1 className="text-7xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(139,92,246,0.5)]">
             Lua.Roblox.Exploits.Scripts
           </h1>
           <p className="text-xl text-blue-300 font-light tracking-wide">
             Premium scripts & exploits for Roblox
           </p>
+        </div>
+
+        <div className="flex justify-center gap-6 mb-12">
+          <div className="bg-black/30 backdrop-blur-md border border-purple-500/30 rounded-lg px-6 py-3">
+            <div className="text-center">
+              <Icon name="Users" size={20} className="mx-auto mb-1 text-purple-400" />
+              <div className="text-2xl font-bold text-white">{stats.total_visits}</div>
+              <div className="text-xs text-gray-400">Всего посещений</div>
+            </div>
+          </div>
+          <div className="bg-black/30 backdrop-blur-md border border-blue-500/30 rounded-lg px-6 py-3">
+            <div className="text-center">
+              <Icon name="UserCheck" size={20} className="mx-auto mb-1 text-blue-400" />
+              <div className="text-2xl font-bold text-white">{stats.unique_visitors}</div>
+              <div className="text-xs text-gray-400">Уникальных</div>
+            </div>
+          </div>
+          <div className="bg-black/30 backdrop-blur-md border border-green-500/30 rounded-lg px-6 py-3">
+            <div className="text-center">
+              <Icon name="TrendingUp" size={20} className="mx-auto mb-1 text-green-400" />
+              <div className="text-2xl font-bold text-white">{stats.visits_today}</div>
+              <div className="text-xs text-gray-400">За сегодня</div>
+            </div>
+          </div>
         </div>
 
         <div className="flex gap-4 justify-center mb-12">

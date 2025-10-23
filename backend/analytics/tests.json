@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Track visit",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "visitor_id": "test-visitor-123"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get analytics stats",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
