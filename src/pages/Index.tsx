@@ -67,6 +67,7 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showScripts, setShowScripts] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [showInjectors, setShowInjectors] = useState(false);
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
   const [stats, setStats] = useState({ total_visits: 0, unique_visitors: 0, visits_today: 0, visits_week: 0 });
 
@@ -139,6 +140,7 @@ const Index = () => {
             onClick={() => {
               setShowScripts(!showScripts);
               setShowSearch(false);
+              setShowInjectors(false);
               setSearchQuery('');
             }}
             className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 border-2 border-purple-400/50 shadow-[0_0_25px_rgba(139,92,246,0.6)] hover:shadow-[0_0_35px_rgba(139,92,246,0.8)] transition-all duration-300"
@@ -150,12 +152,25 @@ const Index = () => {
             onClick={() => {
               setShowSearch(!showSearch);
               setShowScripts(false);
+              setShowInjectors(false);
               setSearchQuery('');
             }}
             className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 border-2 border-blue-400/50 shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:shadow-[0_0_35px_rgba(59,130,246,0.8)] transition-all duration-300"
           >
             <Icon name="Search" className="mr-2" size={20} />
             {showSearch ? 'Скрыть поиск' : 'Искать скрипты'}
+          </Button>
+          <Button 
+            onClick={() => {
+              setShowInjectors(!showInjectors);
+              setShowScripts(false);
+              setShowSearch(false);
+              setSearchQuery('');
+            }}
+            className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 border-2 border-green-400/50 shadow-[0_0_25px_rgba(34,197,94,0.6)] hover:shadow-[0_0_35px_rgba(34,197,94,0.8)] transition-all duration-300"
+          >
+            <Icon name="Download" className="mr-2" size={20} />
+            {showInjectors ? 'Скрыть' : 'Инжекторы'}
           </Button>
         </div>
 
@@ -231,6 +246,54 @@ const Index = () => {
               </div>
             )}
           </>
+        )}
+
+        {showInjectors && (
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="bg-black/40 backdrop-blur-md border-2 border-green-500/30 hover:border-green-400/60 transition-all duration-300 p-8 hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]">
+                <div className="text-center">
+                  <div className="mb-4">
+                    <Icon name="Download" size={48} className="mx-auto text-green-400" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-white mb-3">Delta Executor</h3>
+                  <p className="text-gray-300 mb-6">Мощный инжектор для Roblox с поддержкой скриптов</p>
+                  <a 
+                    href="https://deltaexecutorapp.com/download/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block"
+                  >
+                    <Button className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 border-2 border-green-400/50 shadow-[0_0_20px_rgba(34,197,94,0.5)] hover:shadow-[0_0_30px_rgba(34,197,94,0.7)] transition-all">
+                      <Icon name="Download" className="mr-2" size={20} />
+                      Скачать Delta
+                    </Button>
+                  </a>
+                </div>
+              </Card>
+
+              <Card className="bg-black/40 backdrop-blur-md border-2 border-orange-500/30 hover:border-orange-400/60 transition-all duration-300 p-8 hover:shadow-[0_0_30px_rgba(249,115,22,0.4)]">
+                <div className="text-center">
+                  <div className="mb-4">
+                    <Icon name="Download" size={48} className="mx-auto text-orange-400" />
+                  </div>
+                  <h3 className="text-3xl font-bold text-white mb-3">KRNL</h3>
+                  <p className="text-gray-300 mb-6">Стабильный эксплойт с высокой производительностью</p>
+                  <a 
+                    href="https://krnl.place/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block"
+                  >
+                    <Button className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 border-2 border-orange-400/50 shadow-[0_0_20px_rgba(249,115,22,0.5)] hover:shadow-[0_0_30px_rgba(249,115,22,0.7)] transition-all">
+                      <Icon name="Download" className="mr-2" size={20} />
+                      Скачать KRNL
+                    </Button>
+                  </a>
+                </div>
+              </Card>
+            </div>
+          </div>
         )}
       </div>
     </div>
