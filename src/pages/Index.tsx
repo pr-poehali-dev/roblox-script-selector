@@ -58,6 +58,7 @@ const scripts = [
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showScripts, setShowScripts] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
 
   const filteredScripts = scripts.filter(script =>
@@ -86,22 +87,30 @@ const Index = () => {
 
         <div className="flex gap-4 justify-center mb-12">
           <Button 
-            onClick={() => setShowScripts(!showScripts)}
+            onClick={() => {
+              setShowScripts(!showScripts);
+              setShowSearch(false);
+              setSearchQuery('');
+            }}
             className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 border-2 border-purple-400/50 shadow-[0_0_25px_rgba(139,92,246,0.6)] hover:shadow-[0_0_35px_rgba(139,92,246,0.8)] transition-all duration-300"
           >
             <Icon name="List" className="mr-2" size={20} />
             {showScripts ? 'Скрыть скрипты' : 'Список скриптов'}
           </Button>
           <Button 
-            onClick={() => setSearchQuery('')}
+            onClick={() => {
+              setShowSearch(!showSearch);
+              setShowScripts(false);
+              setSearchQuery('');
+            }}
             className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 border-2 border-blue-400/50 shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:shadow-[0_0_35px_rgba(59,130,246,0.8)] transition-all duration-300"
           >
             <Icon name="Search" className="mr-2" size={20} />
-            Искать скрипты
+            {showSearch ? 'Скрыть поиск' : 'Искать скрипты'}
           </Button>
         </div>
 
-        {showScripts && (
+        {showSearch && (
           <div className="max-w-2xl mx-auto mb-12">
             <div className="relative animate-scale-in">
               <Input
@@ -120,7 +129,7 @@ const Index = () => {
           </div>
         )}
 
-        {showScripts && (
+        {(showScripts || (showSearch && searchQuery.trim() !== '')) && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {filteredScripts.map((script, index) => (
