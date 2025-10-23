@@ -60,6 +60,14 @@ const scripts = [
     category: 'Farm',
     updated: '2024-10-23',
     script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/nootmaus/IceHubMM2/refs/heads/main/.lua", true))()'
+  },
+  {
+    id: 8,
+    name: 'Steal A Brainrot',
+    description: 'Advanced script for Steal A Brainrot game',
+    category: 'Game',
+    updated: '2024-10-23',
+    script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()'
   }
 ];
 
