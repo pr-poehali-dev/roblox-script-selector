@@ -58,19 +58,6 @@
   }
 
   #pp-badge {
-    width: auto !important;
-    min-width: 200px !important;
-  }
-
-  #pp-badge a {
-    font-size: 0 !important;
-    width: auto !important;
-    padding: 8px 16px !important;
-  }
-
-  #pp-badge a::after {
-    content: "Создано для помощи людям" !important;
-    font-size: 12px !important;
-    white-space: nowrap !important;
+    display: none !important;
   }
 }
