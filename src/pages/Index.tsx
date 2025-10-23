@@ -10,48 +10,55 @@ const scripts = [
     name: 'Infinite Yield',
     description: 'Universal admin script with 300+ commands',
     category: 'Admin',
-    updated: '2024-10-15'
+    updated: '2024-10-15',
+    script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()"
   },
   {
     id: 2,
     name: 'Owl Hub',
     description: 'Premium script hub with auto-farm features',
     category: 'Hub',
-    updated: '2024-10-20'
+    updated: '2024-10-20',
+    script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt'))()"
   },
   {
     id: 3,
     name: 'Arsenal Aimbot',
     description: 'Advanced ESP and aimbot for Arsenal',
     category: 'FPS',
-    updated: '2024-10-18'
+    updated: '2024-10-18',
+    script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubArsenal'))()"
   },
   {
     id: 4,
     name: 'Blox Fruits Auto Farm',
     description: 'Level up fast with automatic grinding',
     category: 'RPG',
-    updated: '2024-10-22'
+    updated: '2024-10-22',
+    script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/AhmadV99/Main/main/BloxFruit'))()"
   },
   {
     id: 5,
     name: 'Synapse X',
     description: 'Level 7 executor with advanced features',
     category: 'Executor',
-    updated: '2024-10-19'
+    updated: '2024-10-19',
+    script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/synapsexus/synapse-x/main/loader'))()"
   },
   {
     id: 6,
     name: 'Pet Simulator Dupe',
     description: 'Duplicate your pets and gems instantly',
     category: 'Exploit',
-    updated: '2024-10-21'
+    updated: '2024-10-21',
+    script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/scriptpastebin/raw/main/petsim'))()"
   }
 ];
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showScripts, setShowScripts] = useState(false);
+  const [selectedScript, setSelectedScript] = useState<string | null>(null);
 
   const filteredScripts = scripts.filter(script =>
     script.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -119,6 +126,7 @@ const Index = () => {
               {filteredScripts.map((script, index) => (
                 <Card
                   key={script.id}
+                  onClick={() => setSelectedScript(selectedScript === script.script ? null : script.script)}
                   className="bg-black/40 backdrop-blur-md border-2 border-purple-500/30 hover:border-blue-400/60 transition-all duration-300 p-6 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:scale-105 cursor-pointer animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -129,12 +137,31 @@ const Index = () => {
                     </span>
                   </div>
                   <p className="text-gray-300 mb-4 text-base">{script.description}</p>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-sm text-gray-400 flex items-center gap-1">
                       <Icon name="Clock" size={14} />
                       {script.updated}
                     </span>
                   </div>
+                  {selectedScript === script.script && (
+                    <div className="mt-4 p-4 bg-black/60 border border-purple-400/30 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-purple-300 font-semibold">Lua Script:</span>
+                        <Button
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigator.clipboard.writeText(script.script);
+                          }}
+                          className="bg-purple-600/50 hover:bg-purple-500/50 border border-purple-400/50"
+                        >
+                          <Icon name="Copy" size={14} className="mr-1" />
+                          Копировать
+                        </Button>
+                      </div>
+                      <pre className="text-xs text-gray-300 overflow-x-auto whitespace-pre-wrap break-all">{script.script}</pre>
+                    </div>
+                  )}
                 </Card>
               ))}
             </div>
