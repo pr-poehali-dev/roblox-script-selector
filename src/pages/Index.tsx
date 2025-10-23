@@ -51,6 +51,7 @@ const scripts = [
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showScripts, setShowScripts] = useState(false);
 
   const filteredScripts = scripts.filter(script =>
     script.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -76,70 +77,75 @@ const Index = () => {
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto mb-12 space-y-6">
-          <div className="relative animate-scale-in">
-            <Input
-              type="text"
-              placeholder="Search scripts..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-14 pl-14 text-lg bg-black/30 border-2 border-purple-500/50 backdrop-blur-md text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 shadow-[0_0_20px_rgba(139,92,246,0.3)]"
-            />
-            <Icon
-              name="Search"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400"
-              size={24}
-            />
-          </div>
-
-          <div className="flex gap-4 justify-center">
-            <Button className="h-12 px-8 text-lg font-semibold bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 border-2 border-purple-400/50 shadow-[0_0_25px_rgba(139,92,246,0.6)] hover:shadow-[0_0_35px_rgba(139,92,246,0.8)] transition-all duration-300">
-              <Icon name="Download" className="mr-2" size={20} />
-              Download All
-            </Button>
-            <Button className="h-12 px-8 text-lg font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 border-2 border-blue-400/50 shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:shadow-[0_0_35px_rgba(59,130,246,0.8)] transition-all duration-300">
-              <Icon name="Zap" className="mr-2" size={20} />
-              Execute
-            </Button>
-          </div>
+        <div className="flex gap-4 justify-center mb-12">
+          <Button 
+            onClick={() => setShowScripts(!showScripts)}
+            className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 border-2 border-purple-400/50 shadow-[0_0_25px_rgba(139,92,246,0.6)] hover:shadow-[0_0_35px_rgba(139,92,246,0.8)] transition-all duration-300"
+          >
+            <Icon name="List" className="mr-2" size={20} />
+            {showScripts ? 'Скрыть скрипты' : 'Список скриптов'}
+          </Button>
+          <Button 
+            onClick={() => setSearchQuery('')}
+            className="h-14 px-10 text-lg font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 border-2 border-blue-400/50 shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:shadow-[0_0_35px_rgba(59,130,246,0.8)] transition-all duration-300"
+          >
+            <Icon name="Search" className="mr-2" size={20} />
+            Искать скрипты
+          </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {filteredScripts.map((script, index) => (
-            <Card
-              key={script.id}
-              className="bg-black/40 backdrop-blur-md border-2 border-purple-500/30 hover:border-blue-400/60 transition-all duration-300 p-6 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:scale-105 cursor-pointer animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex items-start justify-between mb-3">
-                <h3 className="text-2xl font-bold text-white">{script.name}</h3>
-                <span className="px-3 py-1 text-xs font-semibold bg-purple-600/50 border border-purple-400/50 rounded-full text-purple-200">
-                  {script.category}
-                </span>
-              </div>
-              <p className="text-gray-300 mb-4 text-base">{script.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400 flex items-center gap-1">
-                  <Icon name="Clock" size={14} />
-                  {script.updated}
-                </span>
-                <Button
-                  size="sm"
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 border border-purple-400/50 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:shadow-[0_0_20px_rgba(139,92,246,0.6)] transition-all"
+        {showScripts && (
+          <div className="max-w-2xl mx-auto mb-12">
+            <div className="relative animate-scale-in">
+              <Input
+                type="text"
+                placeholder="Введите название скрипта..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-14 pl-14 text-lg bg-black/30 border-2 border-purple-500/50 backdrop-blur-md text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+              />
+              <Icon
+                name="Search"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400"
+                size={24}
+              />
+            </div>
+          </div>
+        )}
+
+        {showScripts && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {filteredScripts.map((script, index) => (
+                <Card
+                  key={script.id}
+                  className="bg-black/40 backdrop-blur-md border-2 border-purple-500/30 hover:border-blue-400/60 transition-all duration-300 p-6 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:scale-105 cursor-pointer animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <Icon name="Download" size={16} className="mr-1" />
-                  Get
-                </Button>
-              </div>
-            </Card>
-          ))}
-        </div>
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-2xl font-bold text-white">{script.name}</h3>
+                    <span className="px-3 py-1 text-xs font-semibold bg-purple-600/50 border border-purple-400/50 rounded-full text-purple-200">
+                      {script.category}
+                    </span>
+                  </div>
+                  <p className="text-gray-300 mb-4 text-base">{script.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400 flex items-center gap-1">
+                      <Icon name="Clock" size={14} />
+                      {script.updated}
+                    </span>
+                  </div>
+                </Card>
+              ))}
+            </div>
 
-        {filteredScripts.length === 0 && (
-          <div className="text-center py-20">
-            <Icon name="Search" size={64} className="mx-auto mb-4 text-purple-400/50" />
-            <p className="text-xl text-gray-400">No scripts found</p>
-          </div>
+            {filteredScripts.length === 0 && (
+              <div className="text-center py-20">
+                <Icon name="Search" size={64} className="mx-auto mb-4 text-purple-400/50" />
+                <p className="text-xl text-gray-400">Скрипты не найдены</p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
