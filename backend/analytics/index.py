@@ -58,7 +58,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         elif method == 'GET':
             cursor.execute("SELECT COUNT(*) FROM visits")
             real_visits = cursor.fetchone()[0]
-            total_visits = real_visits + 25619
+            total_visits = real_visits + 25611
             
             cursor.execute("SELECT COUNT(DISTINCT visitor_id) FROM visits")
             unique_visitors = cursor.fetchone()[0]
