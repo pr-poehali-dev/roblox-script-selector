@@ -57,7 +57,13 @@
     font-family: "Rajdhani", sans-serif;
   }
 
-  #pp-badge {
+  #pp-badge,
+  [id*="lovable"],
+  [class*="lovable"],
+  a[href*="lovable"] {
     display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 }
