@@ -52,6 +52,14 @@ const scripts = [
     category: 'Exploit',
     updated: '2024-10-21',
     script: "loadstring(game:HttpGet('https://raw.githubusercontent.com/scriptpastebin/raw/main/petsim'))()"
+  },
+  {
+    id: 7,
+    name: 'MM2 Autofarm',
+    description: 'Automatic farming for Murder Mystery 2',
+    category: 'Farm',
+    updated: '2024-10-23',
+    script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/nootmaus/IceHubMM2/refs/heads/main/.lua", true))()'
   }
 ];
 
