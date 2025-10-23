@@ -56,4 +56,8 @@
     @apply bg-background text-foreground;
     font-family: "Rajdhani", sans-serif;
   }
+
+  #pp-badge {
+    display: none !important;
+  }
 }
