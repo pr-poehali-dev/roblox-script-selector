@@ -57,13 +57,12 @@
     font-family: "Rajdhani", sans-serif;
   }
 
-  #pp-badge,
-  [id*="lovable"],
-  [class*="lovable"],
-  a[href*="lovable"] {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
+  #pp-badge a {
+    font-size: 0 !important;
+  }
+
+  #pp-badge a::after {
+    content: "Создано для помощи людям" !important;
+    font-size: 12px !important;
   }
 }
