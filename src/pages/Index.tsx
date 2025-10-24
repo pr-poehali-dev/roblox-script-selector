@@ -127,7 +127,7 @@ const Index = () => {
               <div className="text-xs text-gray-400">Всего посещений</div>
             </div>
           </div>
-          <div className="bg-black/30 backdrop-blur-md border border-blue-500/30 rounded-lg px-6 py-3">
+          <div className="backdrop-blur-md border border-blue-500/30 rounded-lg px-6 py-3 bg-slate-500">
             <div className="text-center">
               <Icon name="UserCheck" size={20} className="mx-auto mb-1 text-blue-400" />
               <div className="text-2xl font-bold text-white">{stats.unique_visitors}</div>
